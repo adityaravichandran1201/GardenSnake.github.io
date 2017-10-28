@@ -73,6 +73,9 @@
 
 #Snoopy {
     background-image: url("../images/Snoopy.png");
+    background-position:top;
+    background-size:cover;
+    background-repeat:no-repeat;
     position:relative;
 }
 
@@ -125,5 +128,15 @@
 }
 
 #designerandgeek p {
+	text-align: center;
+}
+
+#cagross img {
+	height: 75%;
+	display: block;
+    margin: auto;
+}
+
+#cagross p {
 	text-align: center;
 }

@@ -64,7 +64,7 @@ function removeItem(e){
 
 const searchBox = document.querySelector('.search-box');
 const searchOutput = document.getElementById('search-output');
-searchBox.addEventListener('keydown', handleSearchBoxChange);
+searchBox.addEventListener('keyup', handleSearchBoxChange);
 
 function handleSearchBoxChange(event) {
   searchOutput.innerText = event.target.value;
@@ -142,7 +142,7 @@ function updateScreen(e) {
 // Info Generator["start"]
 const info = document.getElementById('finalInfo');
 var temp;
-document.querySelector('.name').addEventListener('keydown',getName);
+document.querySelector('.name').addEventListener('keyup',getName);
 function getName(event){
   info.textContent= event.target.value;
   temp = event.target.value;
@@ -192,3 +192,36 @@ function stopTimer() {
   }
 }
 //End of button clicker
+
+// Color code slider
+function rgbToHex(r,g,b) {
+  var r = parseInt(r).toString(16);
+  var g = parseInt(g).toString(16);
+  var b = parseInt(b).toString(16);
+
+  rHex = (r.length == 1 ? "0" + r : r);
+  gHex = (g.length == 1 ? "0" + g : g);
+  bHex = (b.length == 1 ? "0" + b : b);
+
+  return "#" + rHex + gHex + bHex;
+}
+
+const rSlider = document.getElementById("slider-r");
+const gSlider = document.getElementById("slider-g");
+const bSlider = document.getElementById("slider-b");
+
+rSlider.addEventListener('input', updateColor);
+gSlider.addEventListener('input', updateColor);
+bSlider.addEventListener('input', updateColor);
+
+function updateColor() {
+  var colorCode = rgbToHex(rSlider.value, gSlider.value, bSlider.value);
+
+  document.getElementById("color").style.backgroundColor = colorCode;
+
+  rSlider.nextElementSibling.innerHTML = "R: " + rSlider.value;
+  gSlider.nextElementSibling.innerHTML = "G: " + gSlider.value;
+  bSlider.nextElementSibling.innerHTML = "B: " + bSlider.value;
+  document.getElementById("color-code").innerHTML = colorCode;
+}
+// End color slider

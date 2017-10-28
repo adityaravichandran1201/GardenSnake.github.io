@@ -252,10 +252,69 @@ function tapCode() {
         "..... .", "..... ..", "..... ...", "..... ....", "..... .....",
     ];
 
-    output.value = input.value.toLowerCase().replace(/[a-z0-9 ]/g, function(char) {
+    output.value = input.value.toLowerCase().replace(/[a-z]/g, function(char) {
         if (char === ' ') {
             return "/  ";
         }
         return code[key.indexOf(char)] + "  ";
     });
 }
+
+function removeVowels() {
+    if (input.value === "") {
+        modal.style.display = "block";
+    }
+    output.value = input.value.replace(/[aeiou]/g, '');
+}
+
+//Replaces whole numbers that aren't part of other words with their hex representation
+function decToHex(){
+    if (input.value === "") {
+        modal.style.display = "block";
+    }
+
+    var words = input.value.split(" ");
+    for(var i = 0; i < words.length; i++){
+        if(!isNaN(words[i])){
+            var num = Number(words[i]); //Convert to number, won't convert to hex if still string
+            words[i] = "0x" + num.toString(16);
+        }
+    }
+    output.value = words.join(" ");
+}
+
+
+// Remove duplicated words
+function removeDuplicates() {
+    if (input.value === "") {
+        modal.style.display = "block";
+    }
+
+    var arr = input.value.toLowerCase().match(/\w+/g); // Remove punctuation
+    var arrCopy = arr.slice();  // Create copy of array to modify
+    var results = [];
+    
+    for(var i = 0; i < arr.length; i++) {
+      var current = arrCopy.shift();
+      if(results.indexOf(current) === -1) {
+        results.push(current);
+      }
+    }
+    output.value = results.sort(' ').join(' ');
+  }
+
+function removeLeadingNumbers(){
+    if (input.value === "") {
+        modal.style.display = "block";
+    }
+    var words = input.value;
+    while(true){
+        if(Number.isInteger(parseInt(words.charAt(0))) && words.length>0){
+            words=words.slice(1);
+        }else{
+            break;
+        }
+    }
+    output.value = words;
+}
+
